@@ -19,6 +19,7 @@ class CreateReservationsTable extends Migration
             $table->foreignId('store_id')->constrained('stores');
             $table->dateTime('day');
             $table->string('number');
+            $table->string('QRcodeData');
             $table->timestamps();
         });
     }

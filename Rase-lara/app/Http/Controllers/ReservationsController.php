@@ -17,6 +17,7 @@ class ReservationsController extends Controller
             "store_id" => $store_id,
             "day" => $request->day,
             "number" => $request->number,
+            'QRcodeData' => $request->QRdata,
             "created_at" => $now,
             "updated_at" => $now
         ];
@@ -45,6 +46,7 @@ class ReservationsController extends Controller
             "store_id" => $request->store_id,
             "day" => $request->day,
             "number" => $request->number,
+            'QRcodeData' => $request->QRdata,
             "created_at" => $now,
             "updated_at" => $now
         ];
