@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
-    public function put($store_id, Request $request)
+    public function post($store_id, Request $request)
     {
         $now = Carbon::now();
         $param = [
@@ -33,6 +33,34 @@ class ReservationsController extends Controller
             return response()->json(['message' =>'予約時間が既に過ぎています', 'Error' =>true, 'data' => 'dateもしくはtime'], 200);
         }else if(0 >= $request->number){
             return response()->json(['message' => '予約人数が0人以下です', 'Error' =>true, 'data' => 'number'], 200);
+        }
+    }
+
+
+    public function put($user_id, Request $request)
+    {
+        $now = Carbon::now();
+        $param = [
+            "user_id" => $user_id,
+            "store_id" => $request->store_id,
+            "day" => $request->day,
+            "number" => $request->number,
+            "created_at" => $now,
+            "updated_at" => $now
+        ];
+        if ($now < $request->day && 0 < $request->number) {
+            DB::table('Reservations')->where('id', $request->reservation_id)->where('user_id',$user_id)->insert($param);
+            return response()->json([
+                'message' => 'Reservation puted successfully',
+                'data' => $param,
+                'Error' => null
+            ], 200);
+        } else if ($now >= $request->day && 0 >= $request->number) {
+            return response()->json(['message' => '予約時間が既に過ぎているかつ予約人数が0人以下です', 'Error' => true, 'data' => 'dateもしくはtimeとnumber'], 200);
+        } else if ($now >= $request->day) {
+            return response()->json(['message' => '予約時間が既に過ぎています', 'Error' => true, 'data' => 'dateもしくはtime'], 200);
+        } else if (0 >= $request->number) {
+            return response()->json(['message' => '予約人数が0人以下です', 'Error' => true, 'data' => 'number'], 200);
         }
     }
 
