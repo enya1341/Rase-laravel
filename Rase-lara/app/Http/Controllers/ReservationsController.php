@@ -38,12 +38,12 @@ class ReservationsController extends Controller
     }
 
 
-    public function put($user_id, Request $request)
+    public function put($store_id, Request $request)
     {
         $now = Carbon::now();
         $param = [
-            "user_id" => $user_id,
-            "store_id" => $request->store_id,
+            "user_id" => $request->user_id,
+            "store_id" => $store_id,
             "day" => $request->day,
             "number" => $request->number,
             'QRcodeData' => $request->QRdata,
@@ -51,7 +51,7 @@ class ReservationsController extends Controller
             "updated_at" => $now
         ];
         if ($now < $request->day && 0 < $request->number) {
-            DB::table('Reservations')->where('id', $request->reservation_id)->where('user_id',$user_id)->insert($param);
+            DB::table('Reservations')->where('id', $request->reservation_id)->where('user_id', $request->user_id)->insert($param);
             return response()->json([
                 'message' => 'Reservation puted successfully',
                 'data' => $param,
