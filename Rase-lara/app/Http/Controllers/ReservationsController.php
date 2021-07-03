@@ -51,7 +51,7 @@ class ReservationsController extends Controller
             "updated_at" => $now
         ];
         if ($now < $request->day && 0 < $request->number) {
-            DB::table('Reservations')->where('id', $request->reservation_id)->where('user_id', $request->user_id)->update($param);
+            DB::table('Reservations')->where('id', $request->reservation_id)->update($param);
             return response()->json([
                 'message' => 'Reservation updated successfully',
                 'data' => $param,
