@@ -55,7 +55,7 @@ class ReservationsController extends Controller
             return response()->json([
                 'message' => 'Reservation updated successfully',
                 'data' => $param,
-                'Error' => null
+                'Error' => false
             ], 200);
         } else if ($now >= $request->day && 0 >= $request->number) {
             return response()->json(['message' => '予約時間が既に過ぎているかつ予約人数が0人以下です。', 'Error' => true, 'data' => 'dateもしくはtimeとnumber'], 200);
