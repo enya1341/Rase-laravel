@@ -31,12 +31,20 @@ class ValuesController extends Controller
             }
         }
         
+        if($now >= $request->day){
+            DB::table('values')->insert($param);
+            return response()->json([
+                'message' => '評価をしました。×ボタンを押して予約を消しましょう',
+                'data' => $param,
+            ], 200);
+        }else{
+            return response()->json([
+                'message' => 'まだ予約時間を過ぎていません。予約時間が過ぎてから評価しましょう',
+                'data' => $items,
+            ], 200);
+        }
 
-        DB::table('values')->insert($param);
-        return response()->json([
-            'message' => '評価をしました。×ボタンを押して予約を消しましょう',
-            'data' => $param,
-        ], 200);
+        
     }
 
     public function get($store_id)
