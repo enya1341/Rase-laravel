@@ -19,6 +19,7 @@ Route::post('/v1/users/logout', [LogoutController::class, 'post']);
 
 
 Route::get('/v1/users', [UsersController::class, 'get']);
+
 Route::get('/v1/{user_id}/favorites', [FavoritesController::class, 'get']);
 Route::get('/v1/{user_id}/reservations', [ReservationsController::class, 'get']);
 
@@ -36,3 +37,15 @@ Route::delete('/v1/{user_id}/reservations', [ReservationsController::class, 'del
 
 Route::post('/v1/{store_id}/values', [ValuesController::class, 'post']);
 Route::get('/v1/{store_id}/values', [ValuesController::class, 'get']);
+
+
+// 管理者権限
+
+Route::get('/v1/{admin_password}/users', [UsersController::class, 'adminUserGet'])->name('adminUserGet');
+Route::put('/v1/storeAdminGrant/users', [UsersController::class, 'storeAdminGrant'])->name('storeAdminGrant');
+
+// 店舗代表者権限
+
+Route::post('/v1/storeAdmin/stores', [StoresController::class, 'post']);
+Route::put('/v1/{store_id}/storeAdmin/stores', [StoresController::class, 'put']);
+Route::get('/v1/{store_id}/storeAdmin/reservations', [ReservationsController::class, 'storeAdminReservations'])->name('storeAdminReservations');

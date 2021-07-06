@@ -16,9 +16,11 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $param = [
-            'name' => 'test',
+            'name' => 'ENya3(admin)',
             'email' => 'ryuna6337@gmail.com',
-            'password' => Hash::make('test')
+            'password' => Hash::make('test'),
+            'admin' => 1,
+            "storeAdmin" => 1
         ];
         DB::table('users')->insert($param);
     }

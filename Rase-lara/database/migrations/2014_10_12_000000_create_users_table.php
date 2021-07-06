@@ -18,6 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('admin')->nullable();
+            $table->boolean('storeAdmin')->nullable();
+            $table->foreignId('storeAdmin_store_id')->constrained('stores')->nullable();
             $table->timestamps();
         });
     }

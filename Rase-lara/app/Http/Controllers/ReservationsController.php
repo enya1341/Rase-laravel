@@ -104,4 +104,37 @@ class ReservationsController extends Controller
             'data' => $request->reservation_id
         ], 200);
     }
+
+    public function storeAdminReservations($store_id)
+    {
+        $count = 0;
+        $params = array();
+        $reservations_use_userid = DB::table('Reservations')->where('store_id', $store_id)->get();
+        foreach ($reservations_use_userid as $reservation) {
+            $datetime = preg_split('/["\s]/', $reservation->day);
+            if ($count == 0) {
+                $params[$count] = [
+                    'reservations'   => $reservation,
+                    'date' => $datetime[0],
+                    'time' => $datetime[1]
+                ];
+                $count++;
+            } else {
+                $params[$count] = [
+                    'reservations' => $reservation,
+                    'date' => $datetime[0],
+                    'time' => $datetime[1]
+                ];
+                $count++;
+            }
+        }
+        return response()->json([
+            'message' => 'Storeadmin Reservation got successfully',
+            'data' => $params
+        ], 200);
+    }
 }
+
+
+
+    
