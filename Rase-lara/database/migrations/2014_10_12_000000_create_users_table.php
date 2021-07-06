@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('admin')->nullable();
             $table->boolean('storeAdmin')->nullable();
-            $table->foreignId('storeAdmin_store_id')->constrained('stores')->nullable();
+            $table->bigInteger('storeAdmin_store_id')->nullable();
             $table->timestamps();
         });
     }
