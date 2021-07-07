@@ -23,7 +23,7 @@ class UsersController extends Controller
         }
     }
 
-    public function adminUserGet(Request $request)
+    public function adminuserget(Request $request)
     {
         Log::debug("読み込み成功");
         $email = $request->input('email');
