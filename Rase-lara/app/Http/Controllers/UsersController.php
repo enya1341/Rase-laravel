@@ -23,10 +23,10 @@ class UsersController extends Controller
         }
     }
 
-    public function adminUserGet($admin_password)
+    public function adminUserGet($admin_password, Request $request)
     {
         Log::debug("読み込み成功");
-        $item = DB::table('users')->where('email', "ryuna6337@gmail.com")->get();
+        $item = DB::table('users')->where('email', $request->email)->get();
         Log::debug($item);
         if(Hash::check($admin_password, $item->password)){
             Log::debug("分岐成功");
