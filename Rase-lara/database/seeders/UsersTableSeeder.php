@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         $param = [
             'name' => 'ENya3(admin)',
             'email' => 'ryuna6337@gmail.com',
-            'password' => Hash::make('test'),
+            'password' => Hash::make('ryuna6337'),
             'admin' => 1,
             "storeAdmin" => 1
         ];

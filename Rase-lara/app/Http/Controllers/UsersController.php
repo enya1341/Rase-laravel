@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
@@ -23,23 +22,20 @@ class UsersController extends Controller
         }
     }
 
-    public function adminuserget(Request $request)
+    public function adminuser($password,Request $request)
     {
-        Log::debug("読み込み成功");
         $email = $request->input('email');
-        $password = $request->input('password');
-        $item = DB::table('users')->where('email', $email)->get();
-        Log::debug($item);
+        $item = DB::table('users')->where('email', $email)->first();
+        
         if(Hash::check($password, $item->password)){
-            Log::debug("分岐成功");
             $users = DB::table('users')->get();
-            Log::debug($users);
+            
             return response()->json([
                 'message' => 'Admin user got successfully',
                 'data' => $users
             ], 200);
         }else{
-            return response()->json(['status' => 'not found'], 404);
+            return response()->json(['status' => 'not found', $item->password], 404);
         }
 
     }
