@@ -41,8 +41,9 @@ Route::get('/v1/{store_id}/values', [ValuesController::class, 'get']);
 
 // 管理者権限
 
-Route::get('/v1/{password}/users', [UsersController::class, 'adminuser'])->name('adminuser');
+Route::get('/v1/{email}/users', [UsersController::class, 'adminuser'])->name('adminuser');
 Route::put('/v1/storeAdminGrant/users', [UsersController::class, 'storeAdminGrant'])->name('storeAdminGrant');
+Route::put('/v1/storeAdminDelete/users', [UsersController::class, 'storeAdminDelete'])->name('storeAdminDelete');
 
 // 店舗代表者権限
 

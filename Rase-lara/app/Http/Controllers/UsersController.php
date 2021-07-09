@@ -22,10 +22,10 @@ class UsersController extends Controller
         }
     }
 
-    public function adminuser($password,Request $request)
+    public function adminuser($email,Request $request)
     {
-        $email = $request->input('email');
-        $item = DB::table('users')->where('email', $email)->first();
+        $password = $request->input('password');
+        $item = DB::table('users')->where('email', "ryuna6337@gmail.com")->first();
         
         if(Hash::check($password, $item->password)){
             $users = DB::table('users')->get();
@@ -35,7 +35,7 @@ class UsersController extends Controller
                 'data' => $users
             ], 200);
         }else{
-            return response()->json(['status' => 'not found', $item->password], 404);
+            return response()->json(['status' => 'not found'], 404);
         }
 
     }
@@ -43,18 +43,35 @@ class UsersController extends Controller
     public function storeAdminGrant(Request $request)
     {
         $now = Carbon::now();
-        $hashed_password = Hash::make($request->password);
         $param = [
             "name" => $request->name,
             "email" => $request->email,
-            "password" => $hashed_password,
+            "password" => $request->password,
             "storeAdmin" => 1,
             "created_at" => $now,
             "updated_at" => $now,
         ];
-        DB::table('users')->update($param);
+        DB::table('users')->where('email', $request->email)->update($param);
         return response()->json([
-            'message' => 'Storeadmin  granted successfully',
+            'message' => 'Storeadmin granted successfully',
+            'data' => $param,
+        ], 200);
+    }
+
+    public function storeAdminDelete(Request $request)
+    {
+        $now = Carbon::now();
+        $param = [
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => $request->password,
+            "storeAdmin" => 0,
+            "created_at" => $now,
+            "updated_at" => $now,
+        ];
+        DB::table('users')->where('email', $request->email)->update($param);
+        return response()->json([
+            'message' => 'Storeadmin deleted successfully',
             'data' => $param,
         ], 200);
     }

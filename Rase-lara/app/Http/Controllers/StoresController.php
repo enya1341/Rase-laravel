@@ -39,7 +39,7 @@ class StoresController extends Controller
             'overview' => $request->overview,
             'image' => '0.jpg'
         ];
-        DB::table('users')->insert($param);
+        DB::table('stores')->insert($param);
         $storedata = DB::table('stores')->where('name', $request->name)->where('overview', $request->overview)->get();
         return response()->json([
             'message' => 'Storeadmin store created successfully',
@@ -54,12 +54,13 @@ class StoresController extends Controller
             'region' => $request->region,
             'genre' => $request->genre,
             'overview' => $request->overview,
-            'image' => $request->image
+            'image' => '0.jpg'
         ];
         DB::table('stores')->where('id', $store_id)->update($param);
+        $storedata = DB::table('stores')->where('id', $store_id)->get();
         return response()->json([
             'message' => 'Storeadmin store updated successfully',
-            'data' => $param,
+            'data' => $storedata,
         ], 200);
     }
 
