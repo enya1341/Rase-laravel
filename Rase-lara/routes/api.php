@@ -48,5 +48,6 @@ Route::put('/v1/storeAdminDelete/users', [UsersController::class, 'storeAdminDel
 // 店舗代表者権限
 
 Route::post('/v1/storeAdmin/stores', [StoresController::class, 'post']);
+Route::post('/v1/{store_id}/storeAdmin/stores/image', [StoresController::class, 'storeImagePost'])->name('storeImagePost');;
 Route::put('/v1/{store_id}/storeAdmin/stores', [StoresController::class, 'put']);
 Route::get('/v1/{store_id}/storeAdmin/reservations', [ReservationsController::class, 'storeAdminReservations'])->name('storeAdminReservations');

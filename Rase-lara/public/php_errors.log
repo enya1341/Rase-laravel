@@ -1,0 +1,1 @@
+[17-Jul-2021 11:38:14 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Log as Log because the name is already in use in C:\Users\ぱすー\Desktop\Rase-lara-dockerin\Rase-lara\app\Http\Controllers\StoresController.php on line 9
